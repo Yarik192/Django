@@ -17,3 +17,4 @@ VENV/
 ENV/
 /temp/
 /tmp/
+/migrations/
