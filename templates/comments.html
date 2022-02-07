@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}All Comments{% endblock title %}
+
+{% block content %}
+    <div>
+    {% for comment in comments %}
+        <h2>{{ comment.header }}</h2>
+        <h3>{{ comment.comment }}</h3>
+        <h2>{{ comment.updated_published }}</h2>
+    {% endfor %}
+    </div>
+    <div class="ordered comments">
+    <h1>Получить первые 2 коментария по дате создания к статье у которой имя автора последнее по алфавиту.</h1>
+    {% for item in ordered %}
+        <h3>{{ item }}</h3>
+    {% endfor %}
+    </div>
+{% endblock content %}

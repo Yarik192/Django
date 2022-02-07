@@ -1,5 +1,5 @@
 from django.contrib import admin
-from blog.models import User, Article, ReplyToComment
+from blog.models import User, Comment, ReplyToComment
 
 
 @admin.register(User)
@@ -7,7 +7,7 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ["nickname"]
 
 
-@admin.register(Article)
+@admin.register(Comment)
 class ArticleAdmin(admin.ModelAdmin):
     pass
 

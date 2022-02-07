@@ -9,7 +9,7 @@ class AuthorAdmin(admin.ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["name_of_book", "author"]
 
 
 @admin.register(Reader)

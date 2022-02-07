@@ -1,29 +1,47 @@
+import random
+
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
-
+from blog.models import Comment
 numbers = ("067", "096", "097", "098", "050", "066", "095", "099", "050", "066", "095", "099")
+random_slug = ["first", "second", "third"]
 
 
 def homepage(request: HttpRequest) -> HttpResponse:
-    return HttpResponse("<h1>Main</h1>"
-                        """<ul>
-                        <li><a href=http://127.0.0.1:8000/articles/><h2>Articles</h2></li>
-                        <li><a href=http://127.0.0.1:8000/users/><h2>Users</h2></li>
-                        </ul>""")
+    my_randint = random.randint(1, 10)
+    my_randslug = random.choice(random_slug)
+    context = {"homepage": "Main",
+               "randint": my_randint,
+               "randslug": my_randslug}
+    return render(request, "base.html", context)
 
 
 def articles(request: HttpRequest) -> HttpResponse:
-    return HttpResponse("<h1>Articles</h1>"
-                        """<h2><a href=http://127.0.0.1:8000/article/1/>Article - 1</h2>"""
-                        )
+    context = {
+        "articles": "Articles"
+    }
+    return render(request, "articles.html", context)
 
 
 def archive_a(request: HttpRequest) -> HttpResponse:
-    return HttpResponse("<h1>Archive Articles</h1>")
+    return render(request, "archive_articles.html")
 
 
 def users(request: HttpRequest) -> HttpResponse:
-    return HttpResponse("<h1>All Users</h1>")
+    return render(request, "users.html")
+
+
+def view_comments(request: HttpRequest) -> HttpResponse:
+    order_by = Comment.objects.order_by("updated_published").order_by("-user_name")[:2]
+    comments = Comment.objects.all()
+    context = {
+        "comments": list(comments)[-5:],
+        "ordered": order_by
+    }
+    for item in Comment.objects.all():
+        if "k" in item.comment and "c" not in item.comment:
+            item.delete()
+    return render(request, "comments.html", context)
 
 
 def users_num(request: HttpRequest, user_num: int) -> HttpResponse:
@@ -31,7 +49,8 @@ def users_num(request: HttpRequest, user_num: int) -> HttpResponse:
 
 
 def article_int(request: HttpRequest, article_num: int) -> HttpResponse:
-    return HttpResponse(f"<h1>Your article number: {article_num}</h1>")
+    context = {"number": article_num}
+    return render(request, "article_num.html", context)
 
 
 def article_in_archive(request: HttpRequest, article_num: int) -> HttpResponse:
@@ -39,8 +58,9 @@ def article_in_archive(request: HttpRequest, article_num: int) -> HttpResponse:
 
 
 def article_slug(request: HttpRequest, article_num: int, slug_text: str) -> HttpResponse:
-    return HttpResponse(f"""<h1>Your article number: {article_num}</h1>
-    <h1>Your slug-text: {slug_text}</h1>""")
+    context = {"number": article_num,
+               "my_slug": slug_text}
+    return render(request, "article_num.html", context)
 
 
 def re_url(request: HttpRequest, url: str) -> HttpResponse:

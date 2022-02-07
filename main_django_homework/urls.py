@@ -15,19 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from newapp.views import *
+from .views import *
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", homepage),
-    path("articles/", articles),
-    path("articles/archive/", archive_a),
-    path("users/", users),
-    path("article/<int:article_num>/", article_int),
-    path("article/<int:article_num>/archive", article_in_archive),
-    path("article/<int:article_num>/<slug:slug_text>", article_slug),
-    path("users/<int:user_num>/", users_num),
-    re_path(r"^(?P<url>\d{2}[a-zA-Z]\d[-]......$)", re_url),
-    path("<str:phone>", phone),
+    path("", homepage, name="homepage"),
+    path("articles/", articles, name="articles"),
+    path("articles/archive/", archive_a, name="articles_archive"),
+    path("users/", users, name="users"),
+    path("comments", view_comments, name="comments"),
+    path("article/<int:article_num>/", article_int, name="article_num"),
+    path("article/<int:article_num>/archive", article_in_archive, name="article_num_archive"),
+    path("article/<int:article_num>/<slug:slug_text>", article_slug, name="article_slug"),
+    path("users/<int:user_num>/", users_num, name="user_num"),
+    re_path(r"^(?P<url>\d{2}[a-zA-Z]\d[-]......$)", re_url, name="re_url"),
+    path("<str:phone>", phone, name="valid_phone"),
 ]
