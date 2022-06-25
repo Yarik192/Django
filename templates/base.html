@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Homepage{% endblock title %}</title>
+</head>
+<body>
+{% block content %}
+    <h1>{{ homepage }}</h1><br>
+    <a href="{% url "article_num" article_num=randint %}"><h2>Случайная статья по id</h2></a>
+    <a href="{% url "article_slug" article_num=randint slug_text=randslug %}"><h2>Случайная статьяс текстом</h2></a>
+{% endblock content %}
+</body>
+<footer> <a href="{% url "homepage" %}"><h1>Homepage</h1></a></footer>
+</html>

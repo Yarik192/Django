@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Article number</title>
+</head>
+<body>
+{% block content %}
+{% if number|divisibleby:"2" %}
+    <h2>Ваше число чётное</h2>
+{% else %}
+    <h2>Ваше число не чётное</h2>
+{% endif %}
+
+{% include "_slug_text.html" %}
+{% endblock content %}
+</body>
+</html>
